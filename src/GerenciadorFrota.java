@@ -11,10 +11,10 @@ public class GerenciadorFrota {
 
     // Dados de ex
     private void inicializarDadosExemplo() {
-        frota.add(new Carro("Toyota", "Corolla", "ABC-1234", 2020, 45000, 12.5, 50.0, 4, "Flex"));
-        frota.add(new Carro("Honda", "Civic", "DEF-5678", 2021, 30000, 11.8, 47.0, 4, "Gasolina"));
-        frota.add(new Moto("Honda", "CG 160", "GHI-9012", 2022, 15000, 40.0, 15.0, 160, true));
-        frota.add(new Moto("Yamaha", "MT-07", "JKL-3456", 2021, 8000, 20.5, 14.0, 689, true));
+        frota.add(new Carro("Toyota", "Hilux", "ABC-1234", 2020, 45000, 12.5, 50.0, 4, "Flex"));
+        frota.add(new Carro("Honda", "Fit", "DEF-5678", 2021, 30000, 11.8, 47.0, 4, "Gasolina"));
+        frota.add(new Moto("Honda", "MT 07", "GHI-9012", 2022, 15000, 40.0, 15.0, 160, true));
+        frota.add(new Moto("Yamaha", "CG 160", "JKL-3456", 2021, 8000, 20.5, 14.0, 689, true));
         // frota.add(new Caminhao("Volvo", "FH 540", "MNO-7890", 2019, 120000, 3.2, 600.0, 25.0, 3));
         // frota.add(new Caminhao("Mercedes", "Actros", "PQR-1234", 2020, 80000, 3.5, 550.0, 20.0, 2));
     }
