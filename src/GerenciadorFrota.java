@@ -24,6 +24,10 @@ public class GerenciadorFrota {
         frota.add(veiculo);
     }
 
+     public void removerVeiculo(Veiculo veiculo) {
+        frota.remove(veiculo);
+    }
+
     public List<Veiculo> getTodosVeiculos() {
         return new ArrayList<>(frota);
     }
