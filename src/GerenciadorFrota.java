@@ -80,9 +80,16 @@ public class GerenciadorFrota {
     }
 
     // funcionalidade extra: Relatório de Manutenção
-    public List<Veiculo> getVeiculosParaManutencao() {
-        // TODO
+       public List<Veiculo> getVeiculosParaManutencao() {
+        List<Veiculo> resultado = new ArrayList<>();
+        final double LIMIAR_MANUTENCAO = 50000.0; 
+        for (Veiculo v : frota) {
+            if (v.getQuilometragem() >= LIMIAR_MANUTENCAO) {
+                resultado.add(v);
+            }
+        }
 
+        return resultado;
     }
 
     // funcionalidade extra: Veiculo com maior quilometragem
