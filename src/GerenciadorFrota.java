@@ -50,9 +50,6 @@ public class GerenciadorFrota {
                 .findFirst();
     }
 
-    public void removerVeiculo(Veiculo veiculo) {
-        frota.remove(veiculo);
-    }
 
     // aqui começa a programação funcional
     public long getTotalVeiculos() {
