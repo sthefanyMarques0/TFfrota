@@ -24,6 +24,10 @@ public class GerenciadorFrota {
         frota.add(veiculo);
     }
 
+     public void removerVeiculo(Veiculo veiculo) {
+        frota.remove(veiculo);
+    }
+
     public List<Veiculo> getTodosVeiculos() {
         return new ArrayList<>(frota);
     }
@@ -44,6 +48,10 @@ public class GerenciadorFrota {
         return frota.stream()
                 .filter(v -> v.getPlaca().equalsIgnoreCase(placa))
                 .findFirst();
+    }
+
+    public void removerVeiculo(Veiculo veiculo) {
+        frota.remove(veiculo);
     }
 
     // aqui começa a programação funcional
@@ -80,9 +88,16 @@ public class GerenciadorFrota {
     }
 
     // funcionalidade extra: Relatório de Manutenção
-    public List<Veiculo> getVeiculosParaManutencao() {
-        // TODO
+       public List<Veiculo> getVeiculosParaManutencao() {
+        List<Veiculo> resultado = new ArrayList<>();
+        final double LIMIAR_MANUTENCAO = 50000.0; 
+        for (Veiculo veiculo : frota) {
+            if (veiculo.getQuilometragem() >= LIMIAR_MANUTENCAO) {
+                resultado.add(veiculo);
+            }
+        }
 
+        return resultado;
     }
 
     // funcionalidade extra: Veiculo com maior quilometragem
