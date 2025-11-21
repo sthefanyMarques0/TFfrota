@@ -32,6 +32,43 @@ public class App {
         JButton btnMediaConsumo = new JButton("Média de Consumo");
         JButton btnManutencao = new JButton("Manutenção");
         JButton btnMaisRodado = new JButton("Mais Rodado");
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuTotais = new JMenu("Totais de Veículos por Tipo");
+
+        JMenuItem itemCarros = new JMenuItem("Total de Carros");
+        itemCarros.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        long total = gerenciador.getTotalPorTipo(Carro.class);
+        JOptionPane.showMessageDialog(frame, "Total de Carros: " + total);
+    }
+});
+
+        JMenuItem itemMotos = new JMenuItem("Total de Motos");
+        itemMotos.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        long total = gerenciador.getTotalPorTipo(Moto.class);
+        JOptionPane.showMessageDialog(frame, "Total de Motos: " + total);
+    }
+});
+
+        JMenuItem itemCaminhoes = new JMenuItem("Total de Caminhões");
+        itemCaminhoes.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        long total = gerenciador.getTotalPorTipo(Caminhao.class);
+        JOptionPane.showMessageDialog(frame, "Total de Caminhões: " + total);
+    }
+});
+
+        menuTotais.add(itemCarros);
+        menuTotais.add(itemMotos);
+        menuTotais.add(itemCaminhoes);
+
+        menuBar.add(menuTotais);
+
+        frame.setJMenuBar(menuBar);
+
+
 
         botoes.add(btnAdicionar);
         botoes.add(btnRemover);
@@ -98,7 +135,7 @@ public class App {
         }
     }
 
-  private void adicionarVeiculo() {
+     private void adicionarVeiculo() {
     Veiculo novo1 = new Carro("Fiat", "Argo", "NEW-" + (int) (Math.random() * 9999),  2023, 12000, 13.5, 45.0, 4, "Flex");
     Veiculo novo2 = new Carro("Chevrolet", "Onix", "XYZ-9999",2020, 60000, 12.0, 44.0, 4, "Flex");
     gerenciador.adicionarVeiculo(novo1);
@@ -107,13 +144,31 @@ public class App {
     JOptionPane.showMessageDialog(frame, "Veículo de exemplo adicionado!");
 }
 
-    private void removerVeiculo() {
+    private void buscarVeiculo() {
+    String placa = JOptionPane.showInputDialog(frame, "Digite a placa:");
+
+    if (placa == null || placa.isBlank()) return;
+
+    Optional<Veiculo> encontrado = gerenciador.buscarPorPlacaExata(placa.trim());
+
+    if (encontrado.isPresent()) {
+        Veiculo v = encontrado.get();
+        JOptionPane.showMessageDialog(frame,
+                "Veículo encontrado:\n" +
+                        "Marca: " + v.getMarca() +
+                        "\nModelo: " + v.getModelo() +
+                        "\nPlaca: " + v.getPlaca());
+    } else {
+        JOptionPane.showMessageDialog(frame, "Veículo não encontrado.");
+    }
+}
+
+        private void removerVeiculo() {
         String placa = JOptionPane.showInputDialog(frame, "Digite a placa do veículo a ser removido:");
         if (placa == null || placa.trim().isEmpty()) {
             return;
         }
 
-        // O Optional serve como um verificador, tipo um if, else para ver se o veiculo existe ou não.
         Optional<Veiculo> veiculoOpt = gerenciador.buscarPorPlacaExata(placa.trim());
         if (veiculoOpt.isPresent()) {
             gerenciador.removerVeiculo(veiculoOpt.get());
@@ -124,16 +179,16 @@ public class App {
         }
     }
 
-    private void calcularMediaConsumo() {
+        private void calcularMediaConsumo() {
         double media = gerenciador.getMediaConsumo();
         JOptionPane.showMessageDialog(frame,
                 String.format("Média de consumo da frota: %.2f km/L", media));
     }
 
-    private void veiculosParaManutencao() {
+         private void veiculosParaManutencao() {
         List<Veiculo> manutencao = gerenciador.getVeiculosParaManutencao();
 
-        modeloTabela.setRowCount(0);
+         modeloTabela.setRowCount(0);
 
         if (manutencao.isEmpty()) {
             JOptionPane.showMessageDialog(frame, "Nenhum veículo precisa de manutenção.");
@@ -156,7 +211,7 @@ public class App {
                 manutencao.size() + " veículo(s) precisam de manutenção!");
     }
 
-    private void mostrarMaisRodado() {
+         private void mostrarMaisRodado() {
         Optional<Veiculo> maisRodado = gerenciador.getVeiculoMaisRodado();
 
         if (maisRodado.isPresent()) {

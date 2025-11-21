@@ -50,9 +50,17 @@ public class GerenciadorFrota {
                 .findFirst();
     }
 
-    public void removerVeiculo(Veiculo veiculo) {
-        frota.remove(veiculo);
+public long getTotalPorTipo(Class<? extends Veiculo> tipo) {
+long contador = 0;
+
+    for (Veiculo v : frota) {
+        if (tipo.isInstance(v)) {  
+            contador++;
+        }
     }
+
+    return contador;
+}
 
     // aqui começa a programação funcional
     public long getTotalVeiculos() {
@@ -67,9 +75,9 @@ public class GerenciadorFrota {
         return frota.stream().filter(v -> v instanceof Moto).count();
     }
 
-  //  public long getTotalCaminhoes() {
-  //      return frota.stream().filter(v -> v instanceof Caminhao).count();
-  //  }
+   public long getTotalCaminhoes() {
+        return frota.stream().filter(v -> v instanceof Caminhao).count();
+   }
 
     public double getSomaQuilometragem() {
         return frota.stream().mapToDouble(Veiculo::getQuilometragem).sum();
