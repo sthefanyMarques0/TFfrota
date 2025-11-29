@@ -1,3 +1,4 @@
+package src;
 
 public abstract class Veiculo {
     protected String marca;
@@ -75,10 +76,8 @@ public abstract class Veiculo {
         this.capacidadeTanque = capacidadeTanque;
     }
 
-    // Metodo abstrato para cálculo de autonomia
     public abstract double calcularAutonomia();
 
-    // Metodo para simular uma viagem
     public void realizarViagem(double distancia) {
         this.quilometragem += distancia;
     }

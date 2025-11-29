@@ -1,3 +1,5 @@
+package src;
+
 public class Carro extends Veiculo {
     private int numeroPortas;
     private String tipoCombustivel;

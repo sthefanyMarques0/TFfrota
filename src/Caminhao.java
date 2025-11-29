@@ -1,3 +1,5 @@
+package src;
+
 public class Caminhao extends Veiculo{
 
     private double capacidadeCarga;

@@ -1,3 +1,5 @@
+package src;
+
 public class Moto extends Veiculo {
     private int cilindradas;
     private boolean partidaEletrica;

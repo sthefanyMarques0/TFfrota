@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,17 +17,26 @@ public class GerenciadorFrota {
         frota.add(new Carro("Honda", "Fit", "DEF-5678", 2021, 30000, 11.8, 47.0, 4, "Gasolina"));
         frota.add(new Moto("Honda", "MT 07", "GHI-9012", 2022, 15000, 40.0, 15.0, 160, true));
         frota.add(new Moto("Yamaha", "CG 160", "JKL-3456", 2021, 8000, 20.5, 14.0, 689, true));
-        // frota.add(new Caminhao("Volvo", "FH 540", "MNO-7890", 2019, 120000, 3.2, 600.0, 25.0, 3));
-        // frota.add(new Caminhao("Mercedes", "Actros", "PQR-1234", 2020, 80000, 3.5, 550.0, 20.0, 2));
+        frota.add(new Caminhao("Volvo", "FH 540", "MNO-7890", 2019, 120000, 3.2, 600.0, 25000.0)); // Capacidade de carga em kg
+        frota.add(new Caminhao("Mercedes", "Actros", "PQR-1234", 2020, 80000, 3.5, 550.0, 20000.0)); // Capacidade de carga em kg
     }
 
     // parte CRUD do codigo aqui:
+    public List<Veiculo> getFrota() {
+        return frota;
+    }
+
     public void adicionarVeiculo(Veiculo veiculo) {
         frota.add(veiculo);
     }
 
-     public void removerVeiculo(Veiculo veiculo) {
-        frota.remove(veiculo);
+    public boolean removerVeiculo(String placa) {
+        Optional<Veiculo> veiculo = buscarPorPlacaExata(placa);
+        if (veiculo.isPresent()) {
+            frota.remove(veiculo.get());
+            return true;
+        }
+        return false;
     }
 
     public List<Veiculo> getTodosVeiculos() {
@@ -64,9 +75,9 @@ public class GerenciadorFrota {
         return frota.stream().filter(v -> v instanceof Moto).count();
     }
 
-  //  public long getTotalCaminhoes() {
-  //      return frota.stream().filter(v -> v instanceof Caminhao).count();
-  //  }
+    public long getTotalCaminhoes() {
+        return frota.stream().filter(v -> v instanceof Caminhao).count();
+    }
 
     public double getSomaQuilometragem() {
         return frota.stream().mapToDouble(Veiculo::getQuilometragem).sum();
@@ -85,9 +96,9 @@ public class GerenciadorFrota {
     }
 
     // funcionalidade extra: Relatório de Manutenção
-       public List<Veiculo> getVeiculosParaManutencao() {
+    public List<Veiculo> getVeiculosParaManutencao() {
         List<Veiculo> resultado = new ArrayList<>();
-        final double LIMIAR_MANUTENCAO = 50000.0; 
+        final double LIMIAR_MANUTENCAO = 50000.0;
         for (Veiculo veiculo : frota) {
             if (veiculo.getQuilometragem() >= LIMIAR_MANUTENCAO) {
                 resultado.add(veiculo);
